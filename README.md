@@ -17,6 +17,7 @@ A arquitetura completa (por que cada decisão foi tomada, o que ainda falta) est
 - **`.claude/`**: Skill e permissões que só valem quando este projeto está ativo.
 - **`claude-user/`**: o "armazém" da Skill, Subagentes e instrução de **nível usuário** — funcionam em qualquer projeto ativo, não só neste. Ficam aqui (versionados neste repo) e são espelhados em `~/.claude/` via symlink (ver abaixo).
 - **`scripts/setup-symlinks.sh`**: recria os symlinks de `claude-user/` em `~/.claude/`.
+- **`scripts/status-all.sh`**: varre os repos de projeto que você listar dentro dele e mostra quais têm mudança não commitada ou commit não empurrado — pra checar tudo de uma vez em vez de entrar pasta por pasta.
 
 ## Setup numa máquina nova
 
