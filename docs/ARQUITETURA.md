@@ -94,6 +94,8 @@ Tags livres, mas reaproveitando as que já existirem em nós parecidos em vez de
 
 **Regra de reagrupamento (de baixo pra cima):** ao ler o índice de um nível (raiz ou subpasta), se dois ou mais nós/pastas daquele nível compartilharem um tema mais amplo, ou se aquele nível acumulou muitas entradas soltas sem estrutura (regra de bolso: ~6-8+), é sinal de que falta uma pasta intermediária nova. Nunca mover/reorganizar arquivos sem confirmação — sempre propor primeiro (quais nós agrupar, sob que nome, por quê) e só executar depois de aprovado, corrigindo os links relativos afetados.
 
+**Tasks/pendências centralizadas em `tarefas/`:** qualquer item acionável — algo que falta fazer, uma decisão pendente — vive só em `tarefas/pessoal.md` ou `tarefas/empresa.md`, nunca como lista solta dentro de outro nó (ex.: uma seção `## Pendências` dentro de um nó de projeto). Nós de projeto/conhecimento descrevem fatos ("Estado atual"), e apontam pra `tarefas/` quando o fato tem uma ação pendente associada — não duplicam o item. Motivo: task espalhada em dois lugares tende a desalinhar, porque só um dos dois é atualizado quando o item avança.
+
 **Links "Ver também":** ao criar ou editar um nó, checar se ele se relaciona com outro nó existente e, se sim, adicionar um link cruzado nos dois (seção `## Ver também`, link relativo). É isso que faz o vault funcionar como grafo, não como uma pilha de arquivos soltos.
 
 **Higiene de links:** nem toda relação vira link. Dois critérios:
