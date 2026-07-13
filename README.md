@@ -1,12 +1,15 @@
 # Mind — template
 
-Base de conhecimento pessoal organizada como uma árvore de Markdown, feita pra ser editada visualmente num editor tipo [Obsidian](https://obsidian.md) e consultada sob demanda pelo [Claude Code](https://claude.com/claude-code).
+Base de conhecimento pessoal organizada como uma árvore de Markdown, feita pra ser editada visualmente num editor tipo [Obsidian](https://obsidian.md) e consultada sob demanda pelo **[Claude Code](https://claude.com/claude-code)** — o CLI oficial da Anthropic. Este repositório só funciona de verdade com ele: é o `claude` rodando no seu terminal que lê a Skill e o gatilho daqui e decide quando consultar/salvar algo. Sem o Claude Code instalado, o vault é só uma pasta de Markdown comum.
 
 Este repositório é a **versão crua/template**: só a engenharia (Skill, gatilho de captura, script de symlink, docs de arquitetura), sem nenhum conteúdo pessoal. Clone, personalize e comece a preencher com seus próprios nós.
 
-Funciona sozinho, só com Claude Code + um editor de Markdown. Acesso por voz é um extra opcional — ver [Integração por voz](#integração-por-voz-opcional) mais abaixo.
-
 A arquitetura completa (por que cada decisão foi tomada, o que ainda falta) está em [docs/ARQUITETURA.md](docs/ARQUITETURA.md). Este README é só o "como usar".
+
+## Pré-requisitos
+
+- **[Claude Code](https://claude.com/claude-code) instalado** e configurado (`claude` disponível no terminal) — ver o guia oficial de instalação no link.
+- Opcional: um editor de Markdown com suporte a grafo/backlinks, tipo [Obsidian](https://obsidian.md), pra navegar e editar os nós visualmente. Não é obrigatório — dá pra usar só com o terminal.
 
 ## O que tem aqui
 
@@ -21,11 +24,14 @@ A arquitetura completa (por que cada decisão foi tomada, o que ainda falta) est
 git clone <url-deste-repo> mind
 cd mind
 ./scripts/setup-symlinks.sh
+claude
 ```
 
 Pode clonar com o nome que quiser e em qualquer caminho — não há exigência de local fixo, a menos que você use uma integração por voz (ver seção abaixo).
 
 Rodar o script de novo é seguro a qualquer momento (idempotente) — necessário só quando uma Skill/Subagente novo for adicionado em `claude-user/`.
+
+A partir daí é só conversar: peça pra consultar algo, ou comente algo que valha a pena guardar — a Skill e o gatilho cuidam do resto (ver seção abaixo).
 
 ## Como a captura de conhecimento funciona
 
