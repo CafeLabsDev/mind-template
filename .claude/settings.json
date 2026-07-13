@@ -1,0 +1,33 @@
+{
+  "permissions": {
+    "allow": [
+      "Read(**)",
+      "Write(**/*.md)",
+      "Edit(**/*.md)",
+      "Read(//$HOME/.claude/**)",
+      "Bash(git status)",
+      "Bash(git diff *)",
+      "Bash(git log *)",
+      "Bash(git show *)",
+      "Bash(chmod +x scripts/setup-symlinks.sh)",
+      "Bash(scripts/setup-symlinks.sh)",
+      "Bash(git clone *)"
+    ],
+    "deny": [
+      "Read(**/.env)",
+      "Read(**/.env.*)",
+      "Read(**/secrets/**)",
+      "Bash(sudo:*)",
+      "Bash(rm -rf *)",
+      "Bash(curl:*)",
+      "Bash(wget:*)"
+    ],
+    "ask": [
+      "Bash(git add *)",
+      "Bash(git commit *)",
+      "Bash(git push *)",
+      "Bash(git init *)",
+      "Bash(git branch *)"
+    ]
+  }
+}
