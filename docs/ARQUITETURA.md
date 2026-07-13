@@ -96,6 +96,10 @@ Tags livres, mas reaproveitando as que já existirem em nós parecidos em vez de
 
 **Links "Ver também":** ao criar ou editar um nó, checar se ele se relaciona com outro nó existente e, se sim, adicionar um link cruzado nos dois (seção `## Ver também`, link relativo). É isso que faz o vault funcionar como grafo, não como uma pilha de arquivos soltos.
 
+**Higiene de links:** nem toda relação vira link. Dois critérios:
+- **Relação real, não trivia genérica.** "Mesmo padrão de stack" ou "mesmo tipo de projeto" entre dois nós-irmãos não é motivo suficiente pra uma aresta — não ajuda a decidir se vale abrir o outro arquivo. Se o fato for relevante, vira prosa no nó mais geral que já cobre os dois (ex.: a empresa-mãe descreve que os produtos dela usam a mesma stack), não um link entre os irmãos.
+- **Sem duplicar "Depende de"/"Consumido por".** Essas seções já são a aresta do grafo (uma metade de cada lado). Repetir o mesmo link em "Ver também" é redundante — só entra ali uma relação diferente da já coberta.
+
 ---
 
 ## 6. Armazém único: Skills/Subagentes de usuário moram dentro do vault
@@ -161,3 +165,25 @@ Detalhes concretos da integração usada em cada instalação (se houver) ficam 
 - **Time de subagentes especializados**: quais personas fazem sentido, nível usuário ou por projeto, e quais ferramentas/modelo cada um deve ter. Ainda não desenhado em detalhe.
 - **Teste ao vivo da troca de projeto por voz**, se houver integração por voz — só validável rodando o reconhecimento de fala de verdade, não por leitura de código.
 - **Validação end-to-end da captura fora do projeto mind**: confirmar que, numa conversa dentro de outro projeto ativo, o gatilho de fato oferece salvar e a escrita funciona ponta a ponta.
+
+---
+
+## 11. Recebendo atualizações do template
+
+**Decisão:** quem clona este template pra começar o próprio vault deve configurá-lo como um fork "manual" via git — dois remotes, `upstream` (este repo) e `origin` (o repo privado da pessoa) — em vez de gerar o repo pelo botão "Use this template" do GitHub.
+
+```bash
+git clone git@github.com:CafeLabsDev/mind-template.git mind
+cd mind
+git remote rename origin upstream
+git remote add origin <repo-privado-da-pessoa>
+git push -u origin main
+```
+
+Atualizações futuras: `git fetch upstream && git merge upstream/main`.
+
+**Motivo de não usar "Use this template":** esse botão gera um repositório com histórico git desconectado do original — sem ancestral comum. Um `git merge` posterior vira merge de árvores não relacionadas (exige `--allow-unrelated-histories` e tem muito mais superfície pra conflito espúrio, porque o git não consegue distinguir "arquivo novo" de "arquivo modificado" sem histórico compartilhado). Clonar de verdade preserva esse histórico desde o commit zero — merges futuros tendem a ser triviais.
+
+**Por que o merge tende a ficar limpo:** consequência direta da separação já estabelecida entre engenharia (seção 4 — `docs/`, `claude-user/`, `scripts/`, `.claude/`) e conteúdo pessoal (`MIND.md` preenchido + nós). O template nunca toca os arquivos de conteúdo da pessoa; a pessoa normalmente não edita os arquivos de engenharia. Como os dois lados do merge tocam arquivos diferentes, o git resolve sozinho na maioria das vezes.
+
+**Ponto de atrito conhecido:** `.claude/settings.json` (seção 4) acumula permissões liberadas ao longo do uso — é o único arquivo de engenharia que a pessoa também edita organicamente. Se o template mudar esse arquivo e a pessoa também tiver mudado, o merge pode conflitar ali. Raro e de resolução simples (arquivo pequeno) — não justifica um mecanismo mais complexo (submodule/subtree).
