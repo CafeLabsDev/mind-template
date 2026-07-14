@@ -21,39 +21,46 @@ A arquitetura completa (por que cada decisão foi tomada, o que ainda falta) est
 
 ## Setup numa máquina nova
 
-```bash
-git clone <url-deste-repo> mind
-cd mind
-./scripts/setup-symlinks.sh
-claude
-```
+Clone como um fork "manual" via git (dois remotes) — assim dá pra puxar atualizações futuras
+do template (seção abaixo) sem perder seus próprios nós. **Não** use o botão "Use this
+template" do GitHub: ele gera um histórico git desconectado do original e quebra esse fluxo
+(motivo completo em [docs/ARQUITETURA.md](docs/ARQUITETURA.md), seção 12).
+
+1. Crie um repositório **vazio e privado** (GitHub, GitLab, etc.) pra guardar o seu vault —
+   não inicialize com README/license/gitignore, tem que ficar realmente vazio.
+2. Clone o template e reaponte pra esse repo vazio:
+
+   ```bash
+   git clone git@github.com:CafeLabsDev/mind-template.git mind
+   cd mind
+   git remote rename origin upstream
+   git remote add origin <url-do-seu-repo-vazio>
+   git push -u origin main
+   ```
+
+3. Rode o setup e comece a usar:
+
+   ```bash
+   ./scripts/setup-symlinks.sh
+   claude
+   ```
 
 Pode clonar com o nome que quiser e em qualquer caminho — não há exigência de local fixo, a menos que você use uma integração por voz (ver seção abaixo).
 
-Rodar o script de novo é seguro a qualquer momento (idempotente) — necessário só quando uma Skill/Subagente novo for adicionado em `claude-user/`.
+Rodar `./scripts/setup-symlinks.sh` de novo é seguro a qualquer momento (idempotente) — necessário só quando uma Skill/Subagente novo for adicionado em `claude-user/`.
 
 A partir daí é só conversar: peça pra consultar algo, ou comente algo que valha a pena guardar — a Skill e o gatilho cuidam do resto (ver seção abaixo).
 
 ## Recebendo atualizações do template
 
-Este repositório evolui (novas regras na Skill, ajustes na arquitetura). Pra conseguir puxar essas atualizações depois sem perder seus próprios nós, configure o clone como um fork via remote duplo — **não** use o botão "Use this template" do GitHub, ele gera um histórico git desconectado do original e quebra esse fluxo:
-
-```bash
-git clone git@github.com:CafeLabsDev/mind-template.git mind
-cd mind
-git remote rename origin upstream
-git remote add origin <seu-repo-privado-vazio>
-git push -u origin main
-```
-
-A partir daí, sempre que quiser puxar atualizações:
+Este repositório evolui (novas regras na Skill, ajustes na arquitetura). Como o setup acima já deixou o `upstream` configurado, puxar atualizações depois é sempre:
 
 ```bash
 git fetch upstream
 git merge upstream/main
 ```
 
-Isso costuma fundir sem conflito porque a arquitetura já separa o que é "engenharia" (`docs/`, `claude-user/`, `scripts/`, `.claude/`) — que só muda aqui, no template — do que é conteúdo pessoal (`MIND.md` preenchido e as pastas de nós que você for criando) — que o template nunca toca. O ponto de atrito esperado é `.claude/settings.json`: ele acumula permissões liberadas conforme o uso, então se você e o template mudarem esse arquivo ao mesmo tempo pode dar conflito de merge ali — raro, e resolve na mão sem mistério (arquivo pequeno). Mais detalhes da decisão em [docs/ARQUITETURA.md](docs/ARQUITETURA.md), seção 11.
+Isso costuma fundir sem conflito porque a arquitetura já separa o que é "engenharia" (`docs/`, `claude-user/`, `scripts/`, `.claude/`) — que só muda aqui, no template — do que é conteúdo pessoal (`MIND.md` preenchido e as pastas de nós que você for criando) — que o template nunca toca. O ponto de atrito esperado é `.claude/settings.json`: ele acumula permissões liberadas conforme o uso, então se você e o template mudarem esse arquivo ao mesmo tempo pode dar conflito de merge ali — raro, e resolve na mão sem mistério (arquivo pequeno). Mais detalhes da decisão em [docs/ARQUITETURA.md](docs/ARQUITETURA.md), seção 12.
 
 ## Como a captura de conhecimento funciona
 
