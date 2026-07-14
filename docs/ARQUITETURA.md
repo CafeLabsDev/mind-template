@@ -136,6 +136,8 @@ Regras explícitas do gatilho: nunca escrever sem confirmação prévia; não in
 
 **Regra de escopo — o Mind também guarda regras de trabalho, não só fatos:** o gatilho cobre explicitamente "regras de como o Claude deve trabalhar" (convenções de commit, formato de resposta, o que evitar/repetir), não só conhecimento sobre a vida do usuário. O princípio geral: nenhuma informação durável desse tipo deve ficar presa só num sistema de memória interno não versionado quando ela deveria estar no Mind — isso recriaria em paralelo o mesmo problema que o Mind existe pra resolver. Regras de trabalho curtas moram direto na seção correspondente do `claude-user/CLAUDE.md`; se crescerem demais, aplica-se a regra de split (seção 5).
 
+**Regra de trabalho pode ser de projeto, não só global:** nem toda regra de trabalho vale pra qualquer projeto — "nesse repo, sempre faça X" é diferente de "sempre faça X, em qualquer projeto". Regra de projeto vai no `CLAUDE.md` da raiz daquele repo (mecanismo nativo do Claude Code, nível projeto — carregado só quando aquele projeto está ativo, ver seção 2), não no `claude-user/CLAUDE.md` do vault (nível usuário, carregado sempre, em qualquer projeto). Ao capturar uma regra de trabalho, decidir esse escopo antes de escrever é parte do procedimento — ver `claude-user/skills/mind/SKILL.md`.
+
 ---
 
 ## 8. Integração por voz (opcional)
