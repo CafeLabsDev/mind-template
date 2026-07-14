@@ -72,6 +72,10 @@ Nada é salvo sem confirmação — e nada impede edição manual direta a qualq
 
 É possível plugar um assistente de voz externo que resolve "projeto ativo" por voz e roda o Claude Code apontado pra ele. É totalmente opcional — sem isso, o Mind funciona normalmente só com Claude Code no teclado. Detalhes do padrão geral estão em `docs/ARQUITETURA.md`, seção 8.
 
+## Time de agentes de desenvolvimento (opcional)
+
+O Mind organiza conhecimento pessoal — não inclui um time de agentes pra desenvolver software. Se você também constrói produtos/MVPs e quer um padrão de orquestrador + especialistas pra acelerar isso, [Café Labs Forge](https://github.com/CafeLabsDev/forge) é um complemento pronto e totalmente desacoplado (repositório próprio, não depende do Mind nem vice-versa). Detalhes em `docs/ARQUITETURA.md`, seção 9.
+
 ## Repositório privado depois de preenchido
 
 Assim que você começar a adicionar nós de conhecimento com informação pessoal, mantenha o repositório privado. Toda a "engenharia" deste template (Skill, script de symlink, estrutura, este README, `docs/ARQUITETURA.md`) é genérica e pode continuar pública/compartilhável — o que precisa ficar privado é só o conteúdo que você for criando.

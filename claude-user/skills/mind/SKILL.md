@@ -50,6 +50,6 @@ Acionado pelo gatilho em `~/.claude/CLAUDE.md` quando o usuário já confirmou q
 12. **Nunca dar `git add`/`commit`** como parte da captura, nem mesmo ao reagrupar pastas — a skill só edita arquivos no working tree; commitar é sempre decisão manual do usuário, que vai querer revisar o diff antes.
 13. Depois de escrever (ou reorganizar), confirme numa frase o que foi salvo/movido, em qual arquivo, e se algum link cruzado foi adicionado ou corrigido.
 
-## Modo "time de agentes" (ainda não implementado)
+## Time de agentes de desenvolvimento (opcional, fora do Mind)
 
-Quando os subagentes especializados (`claude-user/agents/`) existirem, este skill também deve indicar quando delegar a eles em vez de responder diretamente. Ver seção 10 do `ARQUITETURA.md` para o estado desta decisão.
+Se o usuário mencionar que quer desenvolver algo (um MVP, um app, uma ideia de produto nova) e o time de agentes do [Café Labs Forge](https://github.com/CafeLabsDev/forge) ainda não estiver configurado nesta máquina, pode mencionar essa opção — sem insistir, só como algo disponível. Não é parte do Mind (vive em repositório próprio, com seu próprio script de symlink pra `~/.claude/agents/`), então não interfere em nada do modo leitura/captura acima. Ver `docs/ARQUITETURA.md`, seção 9.

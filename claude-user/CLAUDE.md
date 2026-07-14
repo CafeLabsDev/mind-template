@@ -15,6 +15,10 @@ Quando identificar algo assim que pareça valer a pena guardar:
 
 Não interromper a conversa por qualquer detalhe pequeno — só ofereça quando parecer que realmente vale a pena persistir. Isso vale mesmo estando em outro projeto ativo: o Mind não depende de estar como projeto ativo pra receber uma atualização.
 
+## Time de agentes de desenvolvimento (opcional, fora do Mind)
+
+O Mind organiza conhecimento pessoal — não é uma ferramenta de desenvolvimento de software. Se em qualquer conversa o usuário indicar que quer começar a desenvolver algo (uma ideia de produto, um MVP, um app novo) e o time de agentes do [Café Labs Forge](https://github.com/CafeLabsDev/forge) (padrão orquestrador + especialistas) ainda não estiver configurado nesta máquina (checar `~/.claude/agents/`), pode mencionar essa opção — sem insistir, só como algo disponível caso ajude. Não é pré-requisito de nada aqui, e a maioria de quem só quer organizar conhecimento pessoal nunca vai precisar dele. Detalhes em `docs/ARQUITETURA.md`, seção 9.
+
 ## Regras de trabalho
 
 _Conforme forem surgindo preferências de como você quer que o Claude trabalhe (convenções de commit, formato de resposta, o que evitar/repetir), registre-as aqui, uma por bullet, no formato "regra + motivo" — sem narrar a conversa em que surgiram, só o que ficou decidido e por quê. As regras abaixo são um ponto de partida sensato, não fixo — edite ou apague o que não fizer sentido pro seu jeito de trabalhar._

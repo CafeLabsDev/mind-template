@@ -13,7 +13,8 @@ Tem dois usos simultâneos:
 1. **PKM pessoal** ("segundo cérebro"): vida pessoal, hobbies, conhecimentos e contexto de projetos, tudo pesquisável e navegável.
 2. **Base de conhecimento pro Claude Code**: em qualquer conversa, o Claude deve conseguir consultar esse conhecimento **sem carregar a árvore inteira no contexto** — só o(s) arquivo(s) relevante(s) pra pergunta feita.
 
-Uma extensão possível (ver seção 10) é montar um "time" de agentes especializados que um agente geral aciona conforme a necessidade.
+Um complemento opcional (ver seção 9) é um "time" de agentes especializados pra
+desenvolver software — não faz parte do Mind em si, mas pode ser plugado por cima.
 
 **Princípio orientador, vale pra toda decisão de arquitetura:** tudo que for construído no Mind — estrutura de pastas, formato e tamanho dos nós, granularidade dos arquivos — precisa funcionar bem tanto pra leitura/edição humana quanto pra consulta sob demanda pelo Claude (incluindo por voz, se houver essa integração — seção 8). Não vale otimizar pensando só numa das pontas.
 
@@ -47,7 +48,7 @@ Recomendações gerais:
 - **Links dentro do vault**: preferir links relativos (`[texto](caminho/arquivo.md)`) a `[[wikilink]]` puro, ou garantir nomes de arquivo únicos no vault inteiro — isso deixa a navegação do Claude (via `Read`/`Grep`) determinística.
 - **Não duplicar documentação que já existe em outro repo**: um nó sobre um projeto externo deve **apontar** para o documento vivo daquele projeto (ex: um `PROGRESS.md` já mantido lá), não copiar o conteúdo — evita os dois desalinharem.
 
-O caminho concreto usado em cada instalação fica na seção 9.
+O caminho concreto usado em cada instalação fica na seção 10.
 
 ---
 
@@ -149,30 +150,63 @@ O Mind funciona sozinho só com Claude Code (teclado) e um editor de Markdown. U
 
 **Risco conhecido:** reconhecimento de voz pode errar a transcrição do nome do vault ao trocar de projeto — escolher um nome foneticamente distinto dos demais projetos ajuda. Vale testar ao vivo como qualquer integração nova.
 
-Detalhes concretos da integração usada em cada instalação (se houver) ficam na seção 9, não aqui — esta seção descreve só o padrão geral.
+Detalhes concretos da integração usada em cada instalação (se houver) ficam na seção 10, não aqui — esta seção descreve só o padrão geral.
 
 ---
 
-## 9. Configuração desta instância
+## 9. Time de agentes de desenvolvimento (opcional)
+
+O Mind, por padrão, só ajuda a organizar conhecimento pessoal — não inclui um time de
+subagentes pra desenvolver software. Se além de usar o Mind você também constrói
+produtos/MVPs (apps, sites, etc.) e quer um padrão de agentes especializados
+(orquestrador + especialistas — produto, design, mobile, backend, devops, QA, etc.)
+pra acelerar esse trabalho, existe um complemento pronto e opcional pra isso:
+[Café Labs Forge](https://github.com/CafeLabsDev/forge) — extraído e generalizado de
+um setup real usado em produção, sem referência a nenhum produto/empresa específico.
+
+É totalmente desacoplado do Mind: vive no próprio repositório, com seu próprio script
+de symlink (`scripts/setup-symlinks.sh`, mesmo padrão do Mind — seção 6 — mas
+apontando pra `~/.claude/agents/`), e não depende do Mind pra funcionar (nem
+vice-versa). Configurar:
+
+```bash
+git clone https://github.com/CafeLabsDev/forge.git forge
+cd forge
+./scripts/setup-symlinks.sh
+```
+
+**Quando faz sentido mencionar**: se durante uma conversa o usuário indicar que quer
+começar a desenvolver algo (uma ideia de produto, um MVP, um app novo) e esse time de
+agentes ainda não estiver configurado na máquina, vale mencionar essa opção — sem
+insistir, só como algo disponível. Não é pré-requisito de nada no Mind, e quem só quer
+organizar conhecimento pessoal provavelmente nunca vai precisar dele.
+
+---
+
+## 10. Configuração desta instância
 
 > Preencha esta seção com os detalhes concretos da sua instalação (caminho real do vault, se o repositório já foi inicializado, se há integração por voz, etc.) conforme for configurando. É o bloco mais fácil de esquecer de genericizar se algum dia você quiser repassar este vault adiante — mantenha os detalhes pessoais concentrados aqui, em vez de espalhados pelo resto do documento.
 
 - Caminho do vault nesta máquina: `<preencher>`.
 - Repositório git: `<preencher — inicializado? em que branch?>`.
 - Integração por voz: `<preencher, se houver>`.
+- Time de agentes de desenvolvimento (Forge): `<preencher, se configurado — caminho do clone>`.
 - Repositório privado a partir do momento em que os nós de conhecimento tiverem conteúdo pessoal real.
 
 ---
 
-## 10. Roadmap / decisões em aberto
+## 11. Roadmap / decisões em aberto
 
-- **Time de subagentes especializados**: quais personas fazem sentido, nível usuário ou por projeto, e quais ferramentas/modelo cada um deve ter. Ainda não desenhado em detalhe.
 - **Teste ao vivo da troca de projeto por voz**, se houver integração por voz — só validável rodando o reconhecimento de fala de verdade, não por leitura de código.
 - **Validação end-to-end da captura fora do projeto mind**: confirmar que, numa conversa dentro de outro projeto ativo, o gatilho de fato oferece salvar e a escrita funciona ponta a ponta.
 
+~~Time de subagentes especializados para desenvolvimento~~ — resolvido via o
+complemento opcional [Café Labs Forge](https://github.com/CafeLabsDev/forge), ver
+seção 9.
+
 ---
 
-## 11. Recebendo atualizações do template
+## 12. Recebendo atualizações do template
 
 **Decisão:** quem clona este template pra começar o próprio vault deve configurá-lo como um fork "manual" via git — dois remotes, `upstream` (este repo) e `origin` (o repo privado da pessoa) — em vez de gerar o repo pelo botão "Use this template" do GitHub.
 
