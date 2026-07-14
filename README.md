@@ -28,13 +28,28 @@ template" do GitHub: ele gera um histórico git desconectado do original e quebr
 
 1. Crie um repositório **vazio e privado** (GitHub, GitLab, etc.) pra guardar o seu vault —
    não inicialize com README/license/gitignore, tem que ficar realmente vazio.
-2. Clone o template e reaponte pra esse repo vazio:
+2. Clone o template e reaponte pra esse repo vazio — use SSH se já tiver uma chave configurada
+   no GitHub (não pede senha depois), ou HTTPS se não tiver (funciona sempre, mas pede
+   usuário/token a cada push). Pode misturar: `upstream` num protocolo e `origin` no outro, sem
+   problema.
+
+   **Via SSH:**
 
    ```bash
    git clone git@github.com:CafeLabsDev/mind-template.git mind
    cd mind
    git remote rename origin upstream
-   git remote add origin <url-do-seu-repo-vazio>
+   git remote add origin <url-ssh-do-seu-repo-vazio>
+   git push -u origin main
+   ```
+
+   **Via HTTPS:**
+
+   ```bash
+   git clone https://github.com/CafeLabsDev/mind-template.git mind
+   cd mind
+   git remote rename origin upstream
+   git remote add origin <url-https-do-seu-repo-vazio>
    git push -u origin main
    ```
 
