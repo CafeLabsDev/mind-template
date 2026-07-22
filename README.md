@@ -1,96 +1,98 @@
+[Leia em Português](README.pt-br.md)
+
 # Mind — template
 
-Base de conhecimento pessoal organizada como uma árvore de Markdown, feita pra ser editada visualmente num editor tipo [Obsidian](https://obsidian.md) e consultada sob demanda pelo **[Claude Code](https://claude.com/claude-code)** — o CLI oficial da Anthropic. Este repositório só funciona de verdade com ele: é o `claude` rodando no seu terminal que lê a Skill e o gatilho daqui e decide quando consultar/salvar algo. Sem o Claude Code instalado, o vault é só uma pasta de Markdown comum.
+A personal knowledge base organized as a tree of Markdown files, meant to be edited visually in an [Obsidian](https://obsidian.md)-like editor and queried on demand by **[Claude Code](https://claude.com/claude-code)** — Anthropic's official CLI. This repository only really works alongside it: it's `claude` running in your terminal that reads the Skill and the capture trigger here, and decides when to look something up or save it. Without Claude Code installed, the vault is just a plain folder of Markdown.
 
-Este repositório é a **versão crua/template**: só a engenharia (Skill, gatilho de captura, script de symlink, docs de arquitetura), sem nenhum conteúdo pessoal. Clone, personalize e comece a preencher com seus próprios nós.
+This repository is the **raw/template version**: only the engineering (Skill, capture trigger, symlink script, architecture docs), with no personal content. Clone it, personalize it, and start filling it with your own nodes.
 
-A arquitetura completa (por que cada decisão foi tomada, o que ainda falta) está em [docs/ARQUITETURA.md](docs/ARQUITETURA.md). Este README é só o "como usar".
+The full architecture (why each decision was made, what's still missing) is in [docs/ARQUITETURA.md](docs/ARQUITETURA.md). This README is just the "how to use it".
 
-## Pré-requisitos
+## Prerequisites
 
-- **[Claude Code](https://claude.com/claude-code) instalado** e configurado (`claude` disponível no terminal) — ver o guia oficial de instalação no link.
-- Opcional: um editor de Markdown com suporte a grafo/backlinks, tipo [Obsidian](https://obsidian.md), pra navegar e editar os nós visualmente. Não é obrigatório — dá pra usar só com o terminal.
+- **[Claude Code](https://claude.com/claude-code) installed** and configured (`claude` available in your terminal) — see the official install guide at the link.
+- Optional: a Markdown editor with graph/backlink support, like [Obsidian](https://obsidian.md), to navigate and edit nodes visually. Not required — you can use it from the terminal alone.
 
-## O que tem aqui
+## What's in here
 
-- **`MIND.md`**: índice raiz, começa vazio. Não existe uma árvore de pastas fixa pré-criada — os nós (e as pastas que fizerem sentido pra organizá-los) vão nascendo aos poucos, conforme as conversas.
-- **`.claude/`**: Skill e permissões que só valem quando este projeto está ativo.
-- **`claude-user/`**: o "armazém" da Skill, Subagentes e instrução de **nível usuário** — funcionam em qualquer projeto ativo, não só neste. Ficam aqui (versionados neste repo) e são espelhados em `~/.claude/` via symlink (ver abaixo).
-- **`scripts/setup-symlinks.sh`**: recria os symlinks de `claude-user/` em `~/.claude/`.
-- **`scripts/status-all.sh`**: varre os repos de projeto que você listar dentro dele e mostra quais têm mudança não commitada ou commit não empurrado — pra checar tudo de uma vez em vez de entrar pasta por pasta.
+- **`MIND.md`**: root index, starts empty. There's no fixed pre-built folder tree — nodes (and whatever folders make sense to organize them) get created gradually, as conversations happen.
+- **`.claude/`**: Skill and permissions that only apply while this project is active.
+- **`claude-user/`**: the "warehouse" for **user-level** Skill, Subagents, and instructions — they work in any active project, not just this one. They live here (versioned in this repo) and get mirrored into `~/.claude/` via symlink (see below).
+- **`scripts/setup-symlinks.sh`**: recreates the `claude-user/` symlinks in `~/.claude/`.
+- **`scripts/status-all.sh`**: scans whatever project repos you list inside it and shows which ones have uncommitted changes or unpushed commits — to check everything at once instead of going folder by folder.
 
-## Setup numa máquina nova
+## Setup on a new machine
 
-Clone como um fork "manual" via git (dois remotes) — assim dá pra puxar atualizações futuras
-do template (seção abaixo) sem perder seus próprios nós. **Não** use o botão "Use this
-template" do GitHub: ele gera um histórico git desconectado do original e quebra esse fluxo
-(motivo completo em [docs/ARQUITETURA.md](docs/ARQUITETURA.md), seção 12).
+Clone it as a "manual" fork via git (two remotes) — that way you can pull future updates
+from the template (section below) without losing your own nodes. **Don't** use GitHub's
+"Use this template" button: it creates a git history disconnected from the original and
+breaks this flow (full reasoning in [docs/ARQUITETURA.md](docs/ARQUITETURA.md), section 12).
 
-1. Crie um repositório **vazio e privado** (GitHub, GitLab, etc.) pra guardar o seu vault —
-   não inicialize com README/license/gitignore, tem que ficar realmente vazio.
-2. Clone o template e reaponte pra esse repo vazio — use SSH se já tiver uma chave configurada
-   no GitHub (não pede senha depois), ou HTTPS se não tiver (funciona sempre, mas pede
-   usuário/token a cada push). Pode misturar: `upstream` num protocolo e `origin` no outro, sem
-   problema.
+1. Create an **empty, private** repository (GitHub, GitLab, etc.) to hold your vault —
+   don't initialize it with a README/license/gitignore, it needs to be truly empty.
+2. Clone the template and re-point it to that empty repo — use SSH if you already have a
+   key configured on GitHub (won't ask for a password afterward), or HTTPS if you don't
+   (always works, but asks for username/token on every push). You can mix protocols:
+   `upstream` on one and `origin` on the other, no problem.
 
    **Via SSH:**
 
    ```bash
-   git clone git@github.com:CafeLabsDev/mind-template.git mind
+   git clone git@github.com:CafeLabsCorp/mind-template.git mind
    cd mind
    git remote rename origin upstream
-   git remote add origin <url-ssh-do-seu-repo-vazio>
+   git remote add origin <ssh-url-of-your-empty-repo>
    git push -u origin main
    ```
 
    **Via HTTPS:**
 
    ```bash
-   git clone https://github.com/CafeLabsDev/mind-template.git mind
+   git clone https://github.com/CafeLabsCorp/mind-template.git mind
    cd mind
    git remote rename origin upstream
-   git remote add origin <url-https-do-seu-repo-vazio>
+   git remote add origin <https-url-of-your-empty-repo>
    git push -u origin main
    ```
 
-3. Rode o setup e comece a usar:
+3. Run the setup and start using it:
 
    ```bash
    ./scripts/setup-symlinks.sh
    claude
    ```
 
-Pode clonar com o nome que quiser e em qualquer caminho — não há exigência de local fixo, a menos que você use uma integração por voz (ver seção abaixo).
+You can clone it under any name and at any path — there's no fixed-location requirement, unless you're using a voice integration (see section below).
 
-Rodar `./scripts/setup-symlinks.sh` de novo é seguro a qualquer momento (idempotente) — necessário só quando uma Skill/Subagente novo for adicionado em `claude-user/`.
+Running `./scripts/setup-symlinks.sh` again is safe at any time (idempotent) — only needed when a new Skill/Subagent gets added under `claude-user/`.
 
-A partir daí é só conversar: peça pra consultar algo, ou comente algo que valha a pena guardar — a Skill e o gatilho cuidam do resto (ver seção abaixo).
+From there it's just conversation: ask it to look something up, or mention something worth keeping — the Skill and the trigger handle the rest (see section below).
 
-## Recebendo atualizações do template
+## Receiving template updates
 
-Este repositório evolui (novas regras na Skill, ajustes na arquitetura). Como o setup acima já deixou o `upstream` configurado, puxar atualizações depois é sempre:
+This repository evolves (new Skill rules, architecture tweaks). Since the setup above already configured `upstream`, pulling updates later is always:
 
 ```bash
 git fetch upstream
 git merge upstream/main
 ```
 
-Isso costuma fundir sem conflito porque a arquitetura já separa o que é "engenharia" (`docs/`, `claude-user/`, `scripts/`, `.claude/`) — que só muda aqui, no template — do que é conteúdo pessoal (`MIND.md` preenchido e as pastas de nós que você for criando) — que o template nunca toca. O ponto de atrito esperado é `.claude/settings.json`: ele acumula permissões liberadas conforme o uso, então se você e o template mudarem esse arquivo ao mesmo tempo pode dar conflito de merge ali — raro, e resolve na mão sem mistério (arquivo pequeno). Mais detalhes da decisão em [docs/ARQUITETURA.md](docs/ARQUITETURA.md), seção 12.
+This usually merges without conflict because the architecture already separates "engineering" (`docs/`, `claude-user/`, `scripts/`, `.claude/`) — which only changes here, in the template — from personal content (your filled-in `MIND.md` and whatever node folders you create) — which the template never touches. The expected friction point is `.claude/settings.json`: it accumulates permissions granted as you use it, so if you and the template change that file at the same time you can get a merge conflict there — rare, and resolves by hand without mystery (small file). More details on this decision in [docs/ARQUITETURA.md](docs/ARQUITETURA.md), section 12.
 
-## Como a captura de conhecimento funciona
+## How knowledge capture works
 
-Durante qualquer conversa com o Claude Code, em qualquer projeto, se algo parecer um fato/decisão/preferência pessoal que valha a pena guardar, o Claude pergunta antes de salvar. Se confirmado, ele mesmo edita o nó certo (ou cria um novo) e atualiza o índice em `MIND.md`. A lógica completa está em `claude-user/CLAUDE.md` (gatilho) e `claude-user/skills/mind/SKILL.md` (procedimento).
+During any conversation with Claude Code, in any project, if something looks like a fact/decision/personal preference worth keeping, Claude asks before saving it. If confirmed, it edits the right node itself (or creates a new one) and updates the index in `MIND.md`. The full logic lives in `claude-user/CLAUDE.md` (trigger) and `claude-user/skills/mind/SKILL.md` (procedure).
 
-Nada é salvo sem confirmação — e nada impede edição manual direta a qualquer momento; o Claude só lê o estado atual dos arquivos quando consultado.
+Nothing is saved without confirmation — and nothing stops you from editing files by hand at any time; Claude only reads the current state of the files when queried.
 
-## Integração por voz (opcional)
+## Voice integration (optional)
 
-É possível plugar um assistente de voz externo que resolve "projeto ativo" por voz e roda o Claude Code apontado pra ele. É totalmente opcional — sem isso, o Mind funciona normalmente só com Claude Code no teclado. Detalhes do padrão geral estão em `docs/ARQUITETURA.md`, seção 8.
+You can plug in an external voice assistant that resolves the "active project" by voice and runs Claude Code pointed at it. This is entirely optional — without it, Mind works normally with Claude Code on the keyboard alone. Details of the general pattern are in `docs/ARQUITETURA.md`, section 8.
 
-## Time de agentes de desenvolvimento (opcional)
+## Development agent team (optional)
 
-O Mind organiza conhecimento pessoal — não inclui um time de agentes pra desenvolver software. Se você também constrói produtos/MVPs e quer um padrão de orquestrador + especialistas pra acelerar isso, [Café Labs Forge](https://github.com/CafeLabsDev/forge) é um complemento pronto e totalmente desacoplado (repositório próprio, não depende do Mind nem vice-versa). Detalhes em `docs/ARQUITETURA.md`, seção 9.
+Mind organizes personal knowledge — it doesn't include a team of agents for building software. If you also build products/MVPs and want an orchestrator + specialists pattern to speed that up, [Café Labs Forge](https://github.com/CafeLabsCorp/forge) is a ready-made, fully decoupled complement (its own repository, doesn't depend on Mind or vice versa). Details in `docs/ARQUITETURA.md`, section 9.
 
-## Repositório privado depois de preenchido
+## Make it private once it's filled in
 
-Assim que você começar a adicionar nós de conhecimento com informação pessoal, mantenha o repositório privado. Toda a "engenharia" deste template (Skill, script de symlink, estrutura, este README, `docs/ARQUITETURA.md`) é genérica e pode continuar pública/compartilhável — o que precisa ficar privado é só o conteúdo que você for criando.
+As soon as you start adding knowledge nodes with personal information, keep the repository private. All of this template's "engineering" (Skill, symlink script, structure, this README, `docs/ARQUITETURA.md`) is generic and can stay public/shareable — only the content you create needs to stay private.
