@@ -7,6 +7,10 @@ description: Use isto para (1) consultar a base de conhecimento pessoal do usuá
 
 O vault vive na raiz deste repositório. Índice raiz: `MIND.md` (só links + 1 linha de descrição cada, sem conteúdo pesado). Estrutura completa e decisões de arquitetura: `docs/ARQUITETURA.md`.
 
+## Configuração inicial
+
+`config.md` guarda perguntas de configuração de funcionamento (idioma de conversa, como chamar o usuário, fuso horário, tom, papel/profissão) — diferente de um nó de conhecimento e diferente de `claude-user/CLAUDE.md` (regras de trabalho). Um hook `SessionStart` (`.claude/settings.json`) já avisa automaticamente quando alguma resposta está como `(ainda não respondido)`; se você notar isso por conta própria (por exemplo, lendo `config.md` diretamente), pergunte ao usuário e grave a resposta no lugar do marcador — sem criar nó novo pra isso.
+
 ## Modo leitura (consulta sob demanda)
 
 1. Leia `MIND.md`.

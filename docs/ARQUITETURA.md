@@ -59,6 +59,7 @@ mind/
 ├── docs/
 │   └── ARQUITETURA.md          (este arquivo)
 ├── MIND.md                     (índice raiz: só links + 1 linha de descrição cada, sem conteúdo pesado)
+├── config.md                   (configuração de funcionamento — idioma, como chamar o usuário, fuso, tom, papel; não é nó de conhecimento)
 ├── <categoria-1>/              (ex: vida-pessoal/, conhecimentos/, projetos/ — nomes livres)
 │   └── <categoria-1>.md
 ├── .claude/                    (Skills/Subagentes/settings de PROJETO — só valem com mind ativo)
@@ -74,6 +75,8 @@ mind/
 ```
 
 **Regra: crescimento orgânico, sem pré-scaffold.** O diagrama acima é ilustrativo, não uma árvore pra pré-criar de uma vez. Não se cria pasta/nó vazio ("stub") antes de ter conteúdo real — a árvore cresce um nó de cada vez, conforme o sistema de captura (seção 7) ou edição direta no vault. `MIND.md` começa praticamente vazio (só a instrução de como crescer) e ganha uma linha por nó real conforme surgirem.
+
+**`config.md`:** perguntas de configuração inicial de funcionamento (idioma de conversa, como chamar o usuário, fuso horário, tom das respostas, papel/profissão), cada uma com resposta `(ainda não respondido)` até você preencher. Um hook `SessionStart` em `.claude/settings.json` faz `grep` por esse marcador e injeta um lembrete no contexto pra Claude perguntar assim que detectar alguma em aberto — garante que você seja perguntado logo na primeira sessão depois de clonar, sem depender do skill `mind` ser acionado por algum outro gatilho primeiro.
 
 ---
 

@@ -1,4 +1,16 @@
 {
+  "hooks": {
+    "SessionStart": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "if grep -q \"(ainda não respondido)\" config.md 2>/dev/null; then printf '{\"hookSpecificOutput\":{\"hookEventName\":\"SessionStart\",\"additionalContext\":\"O arquivo config.md do Mind tem perguntas de configuracao inicial sem resposta. Leia config.md, identifique quais perguntas estao marcadas como (ainda nao respondido), pergunte ao usuario logo no inicio desta conversa (pode agrupar via AskUserQuestion), e grave as respostas no arquivo.\"}}'; fi"
+          }
+        ]
+      }
+    ]
+  },
   "permissions": {
     "allow": [
       "Read(**)",
